@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}{{ submission.title }}{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header bg-primary text-white">
+        <h4>{{ submission.title }}</h4>
+    </div>
+    <div class="card-body">
+        <p><strong>ID :</strong> {{ submission.submission_id }}</p>
+        <p><strong>Conférence :</strong> {{ submission.conference.name }}</p>
+        <p><strong>Auteur :</strong> {{ submission.user.username }}</p>
+        <p><strong>Date :</strong> {{ submission.submission_date|date:"d/m/Y à H:i" }}</p>
+        <p><strong>Statut :</strong>
+            <span class="badge {% if submission.status == 'Accepted' %}bg-success
+                               {% elif submission.status == 'Rejected' %}bg-danger
+                               {% elif submission.status == 'Under Review' %}bg-warning
+                               {% else %}bg-secondary{% endif %}">
+                {{ submission.get_status_display }}
+            </span>
+        </p>
+        <hr>
+        <h5>Résumé</h5>
+        <p>{{ submission.abstract|linebreaks }}</p>
+        <p><strong>Mots-clés :</strong> {{ submission.keywords }}</p>
+
+        {% if submission.paper %}
+        <div class="mt-4">
+            <a href="{{ submission.paper.url }}" class="btn btn-success" download>
+                <i class="fas fa-download"></i> Télécharger le PDF
+            </a>
+        </div>
+        {% endif %}
+    </div>
+    <div class="card-footer">
+        <a href="{% url 'submission_list' %}" class="btn btn-secondary">Retour</a>
+        {% if submission.status == 'Submitted' %}
+        <a href="{% url 'submission_update' submission.submission_id %}" class="btn btn-warning">
+            Modifier
+        </a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

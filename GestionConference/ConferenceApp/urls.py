@@ -7,6 +7,12 @@ urlpatterns =[
     path("<int:pk>/",ConferenceDetails.as_view(),name="conference_details"),
     path("add/",ConferenceCreate.as_view(),name="conference_add"),
     path("edit/<int:pk>/",ConferenceUpdate.as_view(),name="conference_update"),
-     path("delete/<int:pk>/",ConferenceDelete.as_view(),name="conference_delete"),
-
+   path("delete/<int:pk>/",ConferenceDelete.as_view(),name="conference_delete"),
+   # === Soumissions ===
+    path('submissions/', views.SubmissionListView.as_view(), name='submission_list'),
+    path('submission/add/', views.SubmissionCreateView.as_view(), name='submission_create'),
+    path('submission/<str:submission_id>/', views.SubmissionDetailView.as_view(), name='submission_detail'),
+    path('submission/<str:submission_id>/edit/', views.SubmissionUpdateView.as_view(), name='submission_update'),
 ]
+
+

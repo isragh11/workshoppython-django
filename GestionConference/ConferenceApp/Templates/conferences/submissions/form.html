@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}{% if form.instance.pk %}Modifier{% else %}Nouvelle{% endif %} Soumission{% endblock %}
+
+{% block content %}
+<h2>{% if form.instance.pk %}Modifier{% else %}Nouvelle{% endif %} Soumission</h2>
+
+<form method="post" enctype="multipart/form-data" class="mt-4">
+    {% csrf_token %}
+    <div class="row g-3">
+        <div class="col-md-6">
+            {{ form.title.label_tag }} {{ form.title }}
+        </div>
+        <div class="col-md-6">
+            {{ form.conference.label_tag }} {{ form.conference }}
+        </div>
+        <div class="col-12">
+            {{ form.abstract.label_tag }} {{ form.abstract }}
+        </div>
+        <div class="col-md-6">
+            {{ form.keywords.label_tag }} {{ form.keywords }}
+        </div>
+        <div class="col-md-6">
+            {{ form.paper.label_tag }} {{ form.paper }}
+        </div>
+    </div>
+    <div class="mt-4">
+        <button type="submit" class="btn btn-primary">Soumettre</button>
+        <a href="{% url 'submission_list' %}" class="btn btn-secondary">Annuler</a>
+    </div>
+</form>
+{% endblock %}

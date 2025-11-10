@@ -130,3 +130,7 @@ AUTH_USER_MODEL = "UserApp.User"  #specifier le model user personnalisé
 LOGIN_REDIRECT_URL="liste_conferences"
 LOGOUT_REDIRECT_URL="login"
 LOGIN_URL="login"
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

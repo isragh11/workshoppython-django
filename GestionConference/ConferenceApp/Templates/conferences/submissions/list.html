@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Mes Soumissions{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">
+    <i class="fas fa-file-alt"></i> Mes Soumissions
+</h2>
+
+<a href="{% url 'submission_create' %}" class="btn btn-primary mb-3">
+    <i class="fas fa-plus"></i> Nouvelle Soumission
+</a>
+
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead class="table-primary">
+            <tr>
+                <th>Titre</th>
+                <th>Statut</th>
+                <th>Conférence</th>
+                <th>Date</th>
+                <th>Paiement</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in submissions %}
+<tr>
+    <td>{{ s.title }}</td>
+    <td>
+        <span class="badge 
+            {% if s.status == 'Accepted' %}bg-success
+            {% elif s.status == 'Rejected' %}bg-danger
+            {% elif s.status == 'Under Review' %}bg-warning
+            {% else %}bg-secondary{% endif %}">
+            {{ s.get_status_display }}
+        </span>
+    </td>
+    <td>{{ s.conference.name }}</td>
+    <td>{{ s.submission_date|date:"d/m/Y" }}</td>
+    <td>{% if s.payed %}Oui{% else %}Non{% endif %}</td>
+    <td>
+        <a href="{% url 'submission_detail' s.submission_id %}" class="btn btn-sm btn-info">
+            Détails
+        </a>
+    </td>
+</tr>
+{% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
