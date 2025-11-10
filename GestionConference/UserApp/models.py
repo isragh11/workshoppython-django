@@ -40,7 +40,7 @@ class User(AbstractUser):
             newid=generate_user_id()
             while User.objects.filter(user_id=newid).exists():
                 newid=generate_user_id()
-                self.user_id=newid    
+            self.user_id=newid    
             super().save(*args,**kwargs)#appel de la méthode save de la classe parente
 
 class OrganizingCommitte(models.Model):
